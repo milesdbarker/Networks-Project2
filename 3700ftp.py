@@ -11,26 +11,26 @@ def parseUrl(url):
         param = temptuple[2]
         temptuple = temptuple[0].partition(':')
         #adding a beginning code so I can tell which things are included later
-        paramlist[plc] = "us:" + ((string)temptuple[0])
+        paramlist[plc] = "us:" + ((string)(temptuple[0]))
         plc += 1
-        paramlist[plc] = "ps:" + ((string)temptuple[2])
+        paramlist[plc] = "ps:" + ((string)(temptuple[2]))
         plc += 1
     else:
         #then check for port
         param = temptuple[0]
         temptuple = param.partition(':')
         if (temptuple[1] == ':'):
-            paramlist[plc] = "ho:" + ((string)temptuple[0])
+            paramlist[plc] = "ho:" + ((string)(temptuple[0]))
             plc += 1
             temptuple = temptuple[2].partition('/')
-            paramlist[plc] = "po:" + ((string)temptuple[0])
+            paramlist[plc] = "po:" + ((string)(temptuple[0]))
             plc += 1
-            paramlist[plc] = "pt:/" + ((string)temptuple[2])
+            paramlist[plc] = "pt:/" + ((string)(temptuple[2]))
         else:
             temptuple = temptuple[0].partition('/')
-            paramlist[plc] = "ho:" + ((string)temptuple[0])
+            paramlist[plc] = "ho:" + ((string)(temptuple[0]))
             plc += 1
-            paramlist[plc] = "pt:/" + ((string)temptuple[2])
+            paramlist[plc] = "pt:/" + ((string)(temptuple[2]))
     return paramlist
 
 #receives a message from socket s, and returns with said message
