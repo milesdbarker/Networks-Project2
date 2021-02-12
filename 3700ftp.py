@@ -146,7 +146,37 @@ if(command == "ls"):
     print(receive(dataS))
     print(receive(controlS))
     print("completed ls")
-    dataS.close()
+if(command == "rm"):
+    dataS = openData(controlS)
+    print("returned from open data")
+    outMessage = "DELE " + path + "\r\n"
+    controlS.sendall(bytes(outMessage, "utf-8"))
+    print(receive(controlS))
+    print(receive(dataS))
+    print(receive(controlS))
+    print("completed rm")
+
+if(command == "cp"):
+    dataS = openData(controlS)
+    print("returned from open data")
+    if (firstParam):
+        outMessage = "RETR " + path + "\r\n"
+        #outMessage = "RETR " + path + " " + param2 + "\r\n"
+        print(receive(controlS))
+        f = open(param2, "w")
+        while (dataS.fileno() != -1):
+            f.write(dataS.recv(1024), "utf-8")
+        print(receive(controlS))
+        print("copied from server to local")
+    else:
+        outMessage = "STOR " + path + "\r\n"
+        controlS.sendall(bytes(outMessage, "utf-8"))
+        print(receive(controlS))
+        f = open(param1)
+        dataS.sendall(bytes(f.read()))
+        dataS.close()
+        print(receive(controlS))
+        print("copied from local to server")
 
 #quit
 outMessage = "QUIT\r\n"
@@ -154,3 +184,4 @@ controlS.sendall(bytes(outMessage, "utf-8"))
 print(receive(controlS))
 
 print("finished and quit")
+controlS.close()
