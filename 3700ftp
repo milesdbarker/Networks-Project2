@@ -36,6 +36,7 @@ def parseUrl(url):
             paramlist[plc] = "ho:" + ((str)(temptuple[0]))
             plc += 1
             paramlist[plc] = "pt:/" + ((str)(temptuple[2]))
+    print(paramlist)
     return paramlist
 
 #receives a message from socket s, and returns with said message
