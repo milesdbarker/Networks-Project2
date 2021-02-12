@@ -116,6 +116,7 @@ print(inMessage)
 if(inMessage[:3] != "230"):
     outMessage = "PASS " + password + "\r\n"
     controlS.sendall(bytes(outMessage, "utf-8"))
+    print(receive(controlS))
 outMessage = "TYPE I\r\n"
 controlS.sendall(bytes(outMessage, "utf-8"))
 print(receive(controlS))
