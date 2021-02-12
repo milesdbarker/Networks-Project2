@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 import socket
 import sys
 
@@ -49,6 +48,21 @@ def receive(s):
             receiving = False
     return inMessage
 
+def openData(s):
+    outMessage = "PASV\r\n"
+    s.sendall(bytes(outMessage, "utf-8"))
+    inMessage = receive(s)
+    print(inMessage)
+    if(inMessage[:3] != 227):
+        print("Unsuccessful in opening data channel")
+    justNums = (inMessage.partition("("))[2]
+    numList = justNums.split(",")
+    ip = numList[0] + "." + numList[1] + "." + numList[2] + "." + numList[3]
+    dataPort = ((int)numList[4] << 8) + (int)numList[5]
+    dataS = socket.socket()
+    dataS.connect((ip, dataPort))
+    return dataS
+
 #Parse the command and inputs
 syslen = len(sys.argv)
 assert (sys.argv[0] == "./3700ftp"), "Invalid command"
@@ -87,51 +101,53 @@ for x in paramlist:
     if(x[:3] == "pt:"):
         path = x[3:]
 
+#set up the control connection
 
-
-s = socket.socket()
+controlS = socket.socket()
 print("port: " + (str)(port))
-s.connect((host, (int)(port)))
+controlS.connect((host, (int)(port)))
 
 print(receive(s))
 
 outMessage = "USER " + username + "\r\n"
-s.sendall(bytes(outMessage, "utf-8"))
-inMessage = receive(s)
+controlS.sendall(bytes(outMessage, "utf-8"))
+inMessage = receive(controlS)
 print(inMessage)
 if(inMessage[:3] != "230"):
     outMessage = "PASS " + password + "\r\n"
-    s.sendall(bytes(outMessage, "utf-8"))
+    controlS.sendall(bytes(outMessage, "utf-8"))
 outMessage = "TYPE I\r\n"
-s.sendall(bytes(outMessage, "utf-8"))
-print(receive(s))
+controlS.sendall(bytes(outMessage, "utf-8"))
+print(receive(controlS))
 outMessage = "MODE S\r\n"
-s.sendall(bytes(outMessage, "utf-8"))
-print(receive(s))
+controlS.sendall(bytes(outMessage, "utf-8"))
+print(receive(controlS))
 outMessage = "STRU F\r\n"
-s.sendall(bytes(outMessage, "utf-8"))
-print(receive(s))
+controlS.sendall(bytes(outMessage, "utf-8"))
+print(receive(controlS))
 
 #run the commands
 if(command == "mkdir"):
     outMessage = "MKD " + path + "\r\n"
-    s.sendall(bytes(outMessage, "utf-8"))
-    print(receive(s))
+    controlS.sendall(bytes(outMessage, "utf-8"))
+    print(receive(controlS))
     print("completed mkdir")
 if(command == "rmdir"):
     outMessage = "RMD " + path + "\r\n"
-    s.sendall(bytes(outMessage, "utf-8"))
-    print(receive(s))
+    controlS.sendall(bytes(outMessage, "utf-8"))
+    print(receive(controlS))
     print("completed rmdir")
 if(command == "ls"):
+    dataS = openData(controlS)
     outMessage = "LIST " + path + "\r\n"
-    s.sendall(bytes(outMessage, "utf-8"))
-    print(receive(s))
+    dataS.sendall(bytes(outMessage, "utf-8"))
+    print(receive(dataS))
     print("completed ls")
+    dataS.close()
 
 #quit
 outMessage = "QUIT\r\n"
-s.sendall(bytes(outMessage, "utf-8"))
-print(receive(s))
+controlS.sendall(bytes(outMessage, "utf-8"))
+print(receive(controlS))
 
 print("finished and quit")
