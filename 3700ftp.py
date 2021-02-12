@@ -9,6 +9,7 @@ def parseUrl(url):
     #first check for username/password
     temptuple = param.partition('@')
     plc = 0
+    paramlist = [''] * 5
     if (temptuple[1] == '@'):
         param = temptuple[2]
         temptuple = temptuple[0].partition(':')
