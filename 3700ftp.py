@@ -53,7 +53,7 @@ elif(syslen == 4):
     param1 = sys.argv[2]
     param2 = sys.argv[3]
 else:
-    return -1
+    print("neither arg was a url")
 
 if (param1[:6] == "ftp://"):
     paramlist = parseUrl(param1)
@@ -112,7 +112,6 @@ if(command == "ls"):
     print("completed ls")
 else:
     print("got past ls")
-    return -1
 
 #quit
 outMessage = "QUIT\r\n"
