@@ -58,7 +58,7 @@ def openData(s):
     justNums = (inMessage.partition("("))[2]
     numList = justNums.split(",")
     ip = numList[0] + "." + numList[1] + "." + numList[2] + "." + numList[3]
-    dataPort = ((int)numList[4] << 8) + (int)numList[5]
+    dataPort = (((int)(numList[4])) << 8) + ((int)(numList[5]))
     dataS = socket.socket()
     dataS.connect((ip, dataPort))
     return dataS
