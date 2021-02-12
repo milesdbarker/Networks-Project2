@@ -21,19 +21,19 @@ def parseUrl(url):
     else:
         #then check for port
         param = temptuple[0]
-        temptuple = param.partition(':')
-        if (temptuple[1] == ':'):
-            paramlist[plc] = "ho:" + ((str)(temptuple[0]))
-            plc += 1
-            temptuple = temptuple[2].partition('/')
-            paramlist[plc] = "po:" + ((str)(temptuple[0]))
-            plc += 1
-            paramlist[plc] = "pt:/" + ((str)(temptuple[2]))
-        else:
-            temptuple = temptuple[0].partition('/')
-            paramlist[plc] = "ho:" + ((str)(temptuple[0]))
-            plc += 1
-            paramlist[plc] = "pt:/" + ((str)(temptuple[2]))
+    temptuple = param.partition(':')
+    if (temptuple[1] == ':'):
+        paramlist[plc] = "ho:" + ((str)(temptuple[0]))
+        plc += 1
+        temptuple = temptuple[2].partition('/')
+        paramlist[plc] = "po:" + ((str)(temptuple[0]))
+        plc += 1
+        paramlist[plc] = "pt:/" + ((str)(temptuple[2]))
+    else:
+        temptuple = temptuple[0].partition('/')
+        paramlist[plc] = "ho:" + ((str)(temptuple[0]))
+        plc += 1
+        paramlist[plc] = "pt:/" + ((str)(temptuple[2]))
     print(paramlist)
     return paramlist
 
