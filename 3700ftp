@@ -163,8 +163,6 @@ if(command == "cp"):
     print("returned from open data")
     if (firstParam):
         outMessage = "RETR " + path + "\r\n"
-        #outMessage = "RETR " + path + " " + param2 + "\r\n"
-        print(receive(controlS))
         f = open(param2, "w")
         while (dataS.fileno() != -1):
             f.write(dataS.recv(1024), "utf-8")
