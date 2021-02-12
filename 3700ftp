@@ -24,17 +24,17 @@ def parseUrl(url):
         param = temptuple[0]
         temptuple = param.partition(':')
         if (temptuple[1] == ':'):
-            paramlist[plc] = "ho:" + ((string)(temptuple[0]))
+            paramlist[plc] = "ho:" + ((str)(temptuple[0]))
             plc += 1
             temptuple = temptuple[2].partition('/')
-            paramlist[plc] = "po:" + ((string)(temptuple[0]))
+            paramlist[plc] = "po:" + ((str)(temptuple[0]))
             plc += 1
-            paramlist[plc] = "pt:/" + ((string)(temptuple[2]))
+            paramlist[plc] = "pt:/" + ((str)(temptuple[2]))
         else:
             temptuple = temptuple[0].partition('/')
-            paramlist[plc] = "ho:" + ((string)(temptuple[0]))
+            paramlist[plc] = "ho:" + ((str)(temptuple[0]))
             plc += 1
-            paramlist[plc] = "pt:/" + ((string)(temptuple[2]))
+            paramlist[plc] = "pt:/" + ((str)(temptuple[2]))
     return paramlist
 
 #receives a message from socket s, and returns with said message
