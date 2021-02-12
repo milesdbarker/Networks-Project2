@@ -111,13 +111,21 @@ s.sendall(bytes(outMessage, "utf-8"))
 print(receive(s))
 
 #run the commands
+if(command == "mkdir"):
+    outMessage = "MKD " + path + "\r\n"
+    s.sendall(bytes(outMessage, "utf-8"))
+    print(receive(s))
+    print("completed mkdir")
+if(command == "rmdir"):
+    outMessage = "RMD " + path + "\r\n"
+    s.sendall(bytes(outMessage, "utf-8"))
+    print(receive(s))
+    print("completed rmdir")
 if(command == "ls"):
     outMessage = "LIST " + path + "\r\n"
     s.sendall(bytes(outMessage, "utf-8"))
     print(receive(s))
     print("completed ls")
-else:
-    print("got past ls")
 
 #quit
 outMessage = "QUIT\r\n"
