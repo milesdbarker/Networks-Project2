@@ -48,7 +48,7 @@ assert (sys.argv[0] == "./3700ftp"), "Invalid command"
 if (syslen == 3):
     command = sys.argv[1]
     param1 = sys.argv[2]
-else if (syslen == 4):
+elif(syslen == 4):
     command = sys.argv[1]
     param1 = sys.argv[2]
     param2 = sys.argv[3]
