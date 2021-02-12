@@ -106,7 +106,7 @@ controlS = socket.socket()
 print("port: " + (str)(port))
 controlS.connect((host, (int)(port)))
 
-print(receive(s))
+print(receive(controlS))
 
 outMessage = "USER " + username + "\r\n"
 controlS.sendall(bytes(outMessage, "utf-8"))
