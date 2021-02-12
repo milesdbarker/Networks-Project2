@@ -52,7 +52,7 @@ def openData(s):
     s.sendall(bytes(outMessage, "utf-8"))
     inMessage = receive(s)
     print(inMessage)
-    if(inMessage[:3] != 227):
+    if(inMessage[:3] != "227"):
         print("Unsuccessful in opening data channel")
     justNums = (inMessage.partition("("))[2]
     numList = justNums.split(",")
@@ -139,9 +139,10 @@ if(command == "rmdir"):
     print("completed rmdir")
 if(command == "ls"):
     dataS = openData(controlS)
+    print("returned from open data")
     outMessage = "LIST " + path + "\r\n"
     dataS.sendall(bytes(outMessage, "utf-8"))
-    print(receive(dataS))
+    print(receive(controlS))
     print("completed ls")
     dataS.close()
 
