@@ -163,7 +163,7 @@ if(command == "cp"):
         outMessage = "RETR " + path + "\r\n"
         f = open(param2, "w")
         while (dataS.fileno() != -1):
-            f.write(dataS.recv(1024), "utf-8")
+            f.write(str(dataS.recv(1024), "utf-8"))
         print("copied from server to local")
     else:
         outMessage = "STOR " + path + "\r\n"
