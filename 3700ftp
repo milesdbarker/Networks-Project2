@@ -16,9 +16,9 @@ def parseUrl(url):
         param = temptuple[2]
         temptuple = temptuple[0].partition(':')
         #adding a beginning code so I can tell which things are included later
-        paramlist[plc] = "us:" + ((string)(temptuple[0]))
+        paramlist[plc] = "us:" + ((str)(temptuple[0]))
         plc += 1
-        paramlist[plc] = "ps:" + ((string)(temptuple[2]))
+        paramlist[plc] = "ps:" + ((str)(temptuple[2]))
         plc += 1
     else:
         #then check for port
