@@ -141,7 +141,7 @@ if(command == "ls"):
     dataS = openData(controlS)
     print("returned from open data")
     outMessage = "LIST " + path + "\r\n"
-    dataS.sendall(bytes(outMessage, "utf-8"))
+    controlS.sendall(bytes(outMessage, "utf-8"))
     print(receive(controlS))
     print("completed ls")
     dataS.close()
