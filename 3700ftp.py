@@ -55,7 +55,7 @@ elif(syslen == 4):
 else:
     return -1
 
-if (param1[:6] == 'ftp://')
+if (param1[:6] == "ftp://"):
     paramlist = parseUrl(param1)
     firstParam = True
 else:
