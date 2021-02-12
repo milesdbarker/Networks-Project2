@@ -87,7 +87,7 @@ for x in paramlist:
 
 
 s = socket.socket()
-print("port: " + port)
+print("port: " + (str)(port))
 s.connect((host, (int)(port)))
 
 print(receive(s))
