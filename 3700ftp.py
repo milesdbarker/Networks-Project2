@@ -3,6 +3,8 @@ import sys
 
 def parseUrl(url):
     # parses urls of the format ftp://[USER[:PASSWORD]@]HOST[:PORT]/PATH
+    #ftp://barkermil:aqdZUKFMz96NlgWPQHSA@networks-teaching-ftp.ccs.neu.edu:21/
+    
     param = url[:6]
     #first check for username/password
     temptuple = param.partition('@')
