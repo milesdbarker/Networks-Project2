@@ -172,6 +172,7 @@ if(command == "cp"):
         outMessage = "STOR " + path + "\r\n"
         controlS.sendall(bytes(outMessage, "utf-8"))
         print(receive(controlS))
+        print("in cp local to server: " + param1)
         f = open(param1)
         dataS.sendall(bytes(f.read()))
         dataS.close()
