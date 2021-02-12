@@ -41,6 +41,7 @@ def parseUrl(url):
 
 #receives a message from socket s, and returns with said message
 def receive(s):
+    receiving = True
     inMessage = ""
     while(receiving):
         inMessage += str(s.recv(1024), "utf-8")
