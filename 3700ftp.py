@@ -164,7 +164,6 @@ if(command == "cp"):
         f = open(param2, "w")
         while (dataS.fileno() != -1):
             f.write(dataS.recv(1024), "utf-8")
-        print(receive(controlS))
         print("copied from server to local")
     else:
         outMessage = "STOR " + path + "\r\n"
