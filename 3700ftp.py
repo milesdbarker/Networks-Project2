@@ -143,6 +143,7 @@ if(command == "ls"):
     outMessage = "LIST " + path + "\r\n"
     controlS.sendall(bytes(outMessage, "utf-8"))
     print(receive(controlS))
+    print(receive(controlS))
     print("completed ls")
     dataS.close()
 
