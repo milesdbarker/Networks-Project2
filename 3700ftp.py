@@ -151,8 +151,7 @@ if(command == "rm"):
     outMessage = "DELE " + path + "\r\n"
     controlS.sendall(bytes(outMessage, "utf-8"))
     print(receive(controlS))
-    print(receive(dataS))
-    print(receive(controlS))
+    dataS.close()
 
 if(command == "cp"):
     dataS = openData(controlS)
@@ -191,8 +190,6 @@ if (command == "mv"):
         outMessage = "DELE " + path + "\r\n"
         controlS.sendall(bytes(outMessage, "utf-8"))
         print(receive(controlS))
-        print(receive(dataS))
-        print(receive(controlS))
     else:
         outMessage = "STOR " + path + "\r\n"
         controlS.sendall(bytes(outMessage, "utf-8"))
@@ -207,6 +204,4 @@ if (command == "mv"):
 outMessage = "QUIT\r\n"
 controlS.sendall(bytes(outMessage, "utf-8"))
 print(receive(controlS))
-
-print("finished and quit")
 controlS.close()
