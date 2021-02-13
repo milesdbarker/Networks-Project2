@@ -161,9 +161,9 @@ if(command == "cp"):
     print("returned from open data")
     if (firstParam):
         outMessage = "RETR " + path + "\r\n"
+        controlS.sendall(bytes(outMessage, "utf-8"))
         f = open(param2, "w")
-        stillRecv = True
-        while (stillRecv):
+        while (1):
             inM = dataS.recv(1024)
             f.write(inM)
             if(not inM):
