@@ -166,7 +166,7 @@ if(command == "cp"):
         controlS.sendall(bytes(outMessage, "utf-8"))
         f = open(param2, "w")
         while (1):
-            inM = dataS.recv(1024)
+            inM = str(dataS.recv(1024), "utf-8")
             f.write(inM)
             if(not inM):
                 break
