@@ -1,5 +1,6 @@
 import socket
 import sys
+import os
 
 def parseUrl(url):
     # parses urls of the format ftp://[USER[:PASSWORD]@]HOST[:PORT]/PATH
@@ -131,34 +132,30 @@ if(command == "mkdir"):
     outMessage = "MKD " + path + "\r\n"
     controlS.sendall(bytes(outMessage, "utf-8"))
     print(receive(controlS))
-    print("completed mkdir")
+
 if(command == "rmdir"):
     outMessage = "RMD " + path + "\r\n"
     controlS.sendall(bytes(outMessage, "utf-8"))
     print(receive(controlS))
-    print("completed rmdir")
+
 if(command == "ls"):
     dataS = openData(controlS)
-    print("returned from open data")
     outMessage = "LIST " + path + "\r\n"
     controlS.sendall(bytes(outMessage, "utf-8"))
     print(receive(controlS))
     print(receive(dataS))
     print(receive(controlS))
-    print("completed ls")
+
 if(command == "rm"):
     dataS = openData(controlS)
-    print("returned from open data")
     outMessage = "DELE " + path + "\r\n"
     controlS.sendall(bytes(outMessage, "utf-8"))
     print(receive(controlS))
     print(receive(dataS))
     print(receive(controlS))
-    print("completed rm")
 
 if(command == "cp"):
     dataS = openData(controlS)
-    print("returned from open data")
     if (firstParam):
         outMessage = "RETR " + path + "\r\n"
         controlS.sendall(bytes(outMessage, "utf-8"))
@@ -169,17 +166,42 @@ if(command == "cp"):
             if(not inM):
                 break
         print(receive(controlS))
-        print("copied from server to local")
     else:
         outMessage = "STOR " + path + "\r\n"
         controlS.sendall(bytes(outMessage, "utf-8"))
         print(receive(controlS))
-        print("in cp local to server: " + param1)
         f = open(param1)
         dataS.sendall(bytes(f.read(), "utf-8"))
         dataS.close()
         print(receive(controlS))
-        print("copied from local to server")
+
+if (command == "mv"):
+    dataS = openData(controlS)
+    if (firstParam):
+        outMessage = "RETR " + path + "\r\n"
+        controlS.sendall(bytes(outMessage, "utf-8"))
+        f = open(param2, "w")
+        while (1):
+            inM = str(dataS.recv(1024), "utf-8")
+            f.write(inM)
+            if(not inM):
+                break
+        print(receive(controlS))
+        dataS = openData(controlS)
+        outMessage = "DELE " + path + "\r\n"
+        controlS.sendall(bytes(outMessage, "utf-8"))
+        print(receive(controlS))
+        print(receive(dataS))
+        print(receive(controlS))
+    else:
+        outMessage = "STOR " + path + "\r\n"
+        controlS.sendall(bytes(outMessage, "utf-8"))
+        print(receive(controlS))
+        f = open(param1)
+        dataS.sendall(bytes(f.read(), "utf-8"))
+        dataS.close()
+        print(receive(controlS))
+        os.remove(param1)
 
 #quit
 outMessage = "QUIT\r\n"
