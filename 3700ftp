@@ -166,7 +166,7 @@ if(command == "cp"):
         f = open(param2, "w")
         stillRecv = True
         while (stillRecv):
-            inM = dataS.recv()
+            inM = dataS.recv(1024)
             f.write(inM)
             if(not inM):
                 break
