@@ -164,10 +164,10 @@ if(command == "cp"):
         f = open(param2, "w")
         stillRecv = True
         while (stillRecv):
-            inM = (str(dataS.recv(1024), "utf-8")) 
+            inM = dataS.recv()
             f.write(inM)
-            if(sys.getsizeof(inM) < 1024):
-                stillRecv = False
+            if(not inM):
+                break
         print(receive(controlS))
         print("copied from server to local")
     else:
